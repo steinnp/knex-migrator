@@ -39,9 +39,6 @@ describe('_loadConfig', function () {
         const joinStub = sinon.stub(path, 'join');
         joinStub.returns('join');
 
-        const requireStub = sinon.stub(require);
-        requireStub.withArgs('join').returns('loaded config.');
-
         (function () {
             KnexMigrator.prototype._loadConfig({})
         }).should.throw();
