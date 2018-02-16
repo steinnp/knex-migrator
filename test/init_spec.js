@@ -18,17 +18,13 @@ describe('_loadConfig', function () {
             KnexMigrator.prototype._loadConfig()
         }).should.throw();
     })
+
     it('Should throw an error when initialising the function with no values in the options', function () {
-        /*
-        sinon.stub('../', '/MigratorConfig.js', function() {
-            return 0;
-        });
-        var knexMigrator = new KnexMigrator();
-        */
         (function () {
             KnexMigrator.prototype._loadConfig({})
         }).should.throw();
     })
+
     it('Should throw an error when requiring a non existent module', function () {
         const cwdStub = sinon.stub(process, 'cwd');
         cwdStub.returns('cwd');
