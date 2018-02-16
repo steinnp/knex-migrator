@@ -43,4 +43,10 @@ describe('_loadConfig', function () {
         joinStub.calledWith('resolved').should.eql(true);
     })
 
+    it('Should return a config if it has been declared', function() {
+        const configOptions = { test: 'test' };
+        const config = KnexMigrator.prototype._loadConfig({ knexMigratorConfig: configOptions });
+        config.should.eql(configOptions);
+    })
+
 })
