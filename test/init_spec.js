@@ -6,6 +6,7 @@ const path = require('path'),
     should = require('should'),
     fs = require('fs'),
     KnexMigrator = require('../lib'),
+    database = require('../lib/database'),
     config = require('../config'),
     errors = require('../lib/errors'),
     debug = require('debug')('knex-migrator:utils'),
@@ -18,13 +19,13 @@ describe('knex-migrator init functionality', function () {
             (function () {
                 KnexMigrator.prototype._loadConfig()
             }).should.throw();
-        })
+        });
 
         it('Should throw an error when initialising the function with no values in the options', function () {
             (function () {
                 KnexMigrator.prototype._loadConfig({})
             }).should.throw();
-        })
+        });
 
         it('Should throw an error when requiring a non existent module', function () {
             const cwdStub = sinon.stub(process, 'cwd');
@@ -46,14 +47,14 @@ describe('knex-migrator init functionality', function () {
             cwdStub.restore();
             resolveStub.restore();
             joinStub.restore();            
-        })
+        });
 
         it('Should return a config if it has been declared', function () {
             const configOptions = { test: 'test' };
             const config = KnexMigrator.prototype._loadConfig({ knexMigratorConfig: configOptions });
             config.should.eql(configOptions);
-        })
-    })
+        });
+    });
 
     describe('Constructor', function () {
         it('should throw an error if no database is described in the migrator config', function () {
@@ -65,7 +66,7 @@ describe('knex-migrator init functionality', function () {
             }).should.throw('MigratorConfig.js needs to export a database config.')
 
             configStub.restore();
-        })
+        });
 
         it('should throw an error if no migrationPath is described in the migrator config', function () {
             const configStub = sinon.stub(KnexMigrator.prototype, '_loadConfig');
@@ -76,7 +77,7 @@ describe('knex-migrator init functionality', function () {
             }).should.throw('MigratorConfig.js needs to export the location of your migration files.')
 
             configStub.restore();
-        })
+        });
 
         it('should throw an error if no current version is described in the migrator config', function () {
             const configStub = sinon.stub(KnexMigrator.prototype, '_loadConfig');
@@ -87,7 +88,7 @@ describe('knex-migrator init functionality', function () {
             }).should.throw('MigratorConfig.js needs to export the a current version.')
 
             configStub.restore();
-        })
+        });
 
         it('should set the properties currentVersion, migrationPath, subfolder, dbConfig, isMySQL', function () {
             const configStub = sinon.stub(KnexMigrator.prototype, '_loadConfig');
@@ -107,7 +108,6 @@ describe('knex-migrator init functionality', function () {
             migrator.isMySQL.should.eql(true);
 
             configStub.restore();
-        })        
-    })
-
+        });        
+    });
 })
